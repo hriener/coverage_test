@@ -9,8 +9,6 @@ script:
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DENABLE_COVERAGE:BOOL=$COVERAGE .
   - make
   - ./coverage
-
-after_success:
   - coveralls --gcov-options '\-lp'
 
 matrix:
