@@ -13,14 +13,11 @@ addons:
 before_install:
   - pip install --user cpp-coveralls
 script:
-  - mkdir build
-  - cd build
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_STANDARD=$CXX_STANDARD -DENABLE_COVERAGE:BOOL=TRUE ..
   - make VERBOSE=1
   - ./coverage
   - gcov ../coverage.cpp
   - ls -lah
-  - ls -lah ../
 after_success:
   - coveralls --gcov-options '\-lp'
 env: COMPILER=g++-7 CXX_STANDARD=17
