@@ -20,6 +20,7 @@ script:
   - ./coverage
   - gcov ../coverage.cpp
   - ls -lah
+  - ls -lah ../
 after_success:
   - coveralls --gcov-options '\-lp'
 env: COMPILER=g++-7 CXX_STANDARD=17
