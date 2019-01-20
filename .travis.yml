@@ -17,12 +17,12 @@ matrix:
     compiler: gcc
     addons:
       apt:
-        sources: 
+        sources:
           - ubuntu-toolchain-r-test
         packages:
           - g++-7
-    env: COMPILER=g++-7 COVERAGE=TRUE
-    after_success:
+    env: COMPILER=g++-7 COVERAGE=ON
+    after_script:
       - coveralls --gcov-options '\-lp'
   - os: linux
     dist: trusty
@@ -33,9 +33,7 @@ matrix:
           - ubuntu-toolchain-r-test
         packages:
           - g++-8
-    env: COMPILER=g++-8 COVERAGE=TRUE
-    after_success:
-      - coveralls --gcov-options '\-lp'
+    env: COMPILER=g++-8 COVERAGE=OFF
   - os: linux
     dist: trusty
     compiler: clang
@@ -47,25 +45,25 @@ matrix:
         packages:
           - clang-6.0
           - g++-7
-    env: COMPILER=clang++-6.0 COVERAGE=FALSE
+    env: COMPILER=clang++-6.0 COVERAGE=OFF
   - os: osx
     osx_image: xcode9.3
     compiler: clang
     before_install:
       - brew update
       - brew install llvm
-    env: COMPILER=/usr/local/opt/llvm/bin/clang++ COVERAGE=FALSE
+    env: COMPILER=/usr/local/opt/llvm/bin/clang++ COVERAGE=OFF
   - os: osx
     osx_image: xcode8.3
     compiler: gcc
     before_install:
       - brew update
       - brew install gcc
-    env: COMPILER=/usr/local/opt/gcc/bin/g++-8 COVERAGE=FALSE
+    env: COMPILER=/usr/local/opt/gcc/bin/g++-8 COVERAGE=OFF
   - os: osx
     osx_image: xcode8.3
     compiler: gcc
     before_install:
       - brew update
       - brew install gcc@7
-    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7 COVERAGE=FALSE
+    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7 COVERAGE=OFF
