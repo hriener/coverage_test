@@ -9,7 +9,6 @@ script:
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DENABLE_COVERAGE:BOOL=$COVERAGE .
   - make
   - ./coverage
-  - if [[ $COVERAGE == TRUE ]]; then coveralls --gcov-options '\-lp'; fi
 
 matrix:
   include:
@@ -23,6 +22,8 @@ matrix:
         packages:
           - g++-7
     env: COMPILER=g++-7 COVERAGE=TRUE
+    after_success:
+      - coveralls --gcov-options '\-lp'
   - os: linux
     dist: trusty
     compiler: gcc
@@ -33,6 +34,8 @@ matrix:
         packages:
           - g++-8
     env: COMPILER=g++-8 COVERAGE=TRUE
+    after_success:
+      - coveralls --gcov-options '\-lp'
   - os: linux
     dist: trusty
     compiler: clang
