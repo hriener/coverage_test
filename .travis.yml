@@ -6,7 +6,7 @@ before_install:
   - pip install --user cpp-coveralls
 
 script:
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DENABLE_COVERAGE:BOOL=TRUE .
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DENABLE_COVERAGE:BOOL=$COVERAGE .
   - make
   - ./coverage
 
@@ -17,7 +17,6 @@ matrix:
   include:
   - os: linux
     dist: trusty
-    sudo: required
     compiler: gcc
     addons:
       apt:
@@ -25,10 +24,9 @@ matrix:
           - ubuntu-toolchain-r-test
         packages:
           - g++-7
-    env: COMPILER=g++-7
+    env: COMPILER=g++-7 COVERAGE=TRUE
   - os: linux
     dist: trusty
-    sudo: required
     compiler: gcc
     addons:
       apt:
@@ -36,10 +34,9 @@ matrix:
           - ubuntu-toolchain-r-test
         packages:
           - g++-8
-    env: COMPILER=g++-8
+    env: COMPILER=g++-8 COVERAGE=TRUE
   - os: linux
     dist: trusty
-    sudo: required
     compiler: clang
     addons:
       apt:
@@ -49,25 +46,25 @@ matrix:
         packages:
           - clang-6.0
           - g++-7
-    env: COMPILER=clang++-6.0
+    env: COMPILER=clang++-6.0 COVERAGE=FALSE
   - os: osx
     osx_image: xcode9.3
     compiler: clang
     before_install:
       - brew update
       - brew install llvm
-    env: COMPILER=/usr/local/opt/llvm/bin/clang++
+    env: COMPILER=/usr/local/opt/llvm/bin/clang++ COVERAGE=FALSE
   - os: osx
     osx_image: xcode8.3
     compiler: gcc
     before_install:
       - brew update
       - brew install gcc
-    env: COMPILER=/usr/local/opt/gcc/bin/g++-8
+    env: COMPILER=/usr/local/opt/gcc/bin/g++-8 COVERAGE=TRUE
   - os: osx
     osx_image: xcode8.3
     compiler: gcc
     before_install:
       - brew update
       - brew install gcc@7
-    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7
+    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7 COVERAGE=TRUE
