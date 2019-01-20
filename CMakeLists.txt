@@ -18,3 +18,6 @@ else()
 endif()
 
 add_executable(coverage coverage.cpp)
+if (ENABLE_COVERAGE)
+  target_link_libraries(coverage gcov)
+endif()
