@@ -58,11 +58,11 @@ matrix:
     before_install:
       - brew update
       - brew install gcc
-    env: COMPILER=/usr/local/opt/gcc/bin/g++-8 COVERAGE=TRUE
+    env: COMPILER=/usr/local/opt/gcc/bin/g++-8 COVERAGE=FALSE
   - os: osx
     osx_image: xcode8.3
     compiler: gcc
     before_install:
       - brew update
       - brew install gcc@7
-    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7 COVERAGE=TRUE
+    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7 COVERAGE=FALSE
