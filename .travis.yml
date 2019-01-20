@@ -2,18 +2,24 @@ dist: trusty
 sudo: false
 language: cpp
 
-compiler:
-  - gcc
-  - gcov
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-7
+      - ggcov
+
 before_install:
   - pip install --user cpp-coveralls
 script:
   - mkdir build
   - cd build
-  - cmake -DENABLE_COVERAGE:BOOL=TRUE ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_STANDARD=$CXX_STANDARD -DENABLE_COVERAGE:BOOL=TRUE ..
   - make VERBOSE=1
   - ./coverage
   - gcov ../coverage.cpp
   - ls -lah
 after_success:
   - coveralls --gcov-options '\-lp'
+env: COMPILER=g++-7 CXX_STANDARD=17
