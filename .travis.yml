@@ -23,7 +23,7 @@ matrix:
           - g++-7
     env: COMPILER=g++-7 COVERAGE=ON
     after_script:
-      - coveralls --gcov-options '\-lp'
+      - coveralls --gcov-options '\-lp' --verbose
   - os: linux
     dist: trusty
     compiler: gcc
