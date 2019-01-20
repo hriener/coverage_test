@@ -6,7 +6,7 @@ before_install:
   - pip install --user cpp-coveralls
 
 script:
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DCMAKE_CXX_STANDARD=$CXX_STANDARD -DENABLE_COVERAGE:BOOL=TRUE .
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DENABLE_COVERAGE:BOOL=TRUE .
   - make
   - ./coverage
 
@@ -15,55 +15,59 @@ after_success:
 
 matrix:
   include:
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env: COMPILER=g++-5
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env: COMPILER=g++-6
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-      env: COMPILER=g++-7 CXX_STANDARD=17
-    - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-4.0
-          packages:
-            - clang-4.0
-            - g++-5
-      env: COMPILER=clang++-4.0
-    - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
-          packages:
-            - clang-6.0
-            - g++-5
-      env: COMPILER=clang++-6.0 CXX_STANDARD=17
+  - os: linux
+    dist: trusty
+    sudo: required
+    compiler: gcc
+    addons:
+      apt:
+        sources: 
+          - ubuntu-toolchain-r-test
+        packages:
+          - g++-7
+    env: COMPILER=g++-7
+  - os: linux
+    dist: trusty
+    sudo: required
+    compiler: gcc
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - g++-8
+    env: COMPILER=g++-8
+  - os: linux
+    dist: trusty
+    sudo: required
+    compiler: clang
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+          - llvm-toolchain-trusty-6.0
+        packages:
+          - clang-6.0
+          - g++-7
+    env: COMPILER=clang++-6.0
+  - os: osx
+    osx_image: xcode9.3
+    compiler: clang
+    before_install:
+      - brew update
+      - brew install llvm
+    env: COMPILER=/usr/local/opt/llvm/bin/clang++
+  - os: osx
+    osx_image: xcode8.3
+    compiler: gcc
+    before_install:
+      - brew update
+      - brew install gcc
+    env: COMPILER=/usr/local/opt/gcc/bin/g++-8
+  - os: osx
+    osx_image: xcode8.3
+    compiler: gcc
+    before_install:
+      - brew update
+      - brew install gcc@7
+    env: COMPILER=/usr/local/opt/gcc@7/bin/g++-7
