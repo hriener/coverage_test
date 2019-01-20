@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 project(Coverage)
 
+message("CMAKE_COMPILER_IS_GNUCC=$CMAKE_COMPILER_IS_GNUCC")
+
 if (CMAKE_COMPILER_IS_GNUCC)
   option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
 

@@ -7,7 +7,9 @@ compiler:
 before_install:
   - pip install --user cpp-coveralls
 script:
-  - cmake -DENABLE_COVERAGE
+  - mkdir build
+  - cd build
+  - cmake -DENABLE_COVERAGE ..
   - make
   - ./coverage
 after_success:
