@@ -12,7 +12,8 @@ script:
   - cd build
   - cmake -DENABLE_COVERAGE:BOOL=TRUE ..
   - make VERBOSE=1
-  - gcov ./coverage
+  - ./coverage
+  - gcov ../coverage.cpp
   - ls -lah
 after_success:
   - coveralls --gcov-options '\-lp'
