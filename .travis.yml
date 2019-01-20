@@ -15,4 +15,4 @@ script:
   - ./coverage
   - ls -lah
 after_success:
-  - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
+  - coveralls --gcov-options '\-lp'
